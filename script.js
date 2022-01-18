@@ -104,12 +104,12 @@ var displayCurrentWeather = function (weather) {
 }
 
 var displayDailyforcast =  function(weather){
-    for (let i =0 ; i <= 4; i++) {
+    for (let i =1 ; i <= 5; i++) {
         var daily = document.createElement("div");
         daily.classList.add("card", "col-3");
         var date = document.createElement("h5");
         date.classList.add("card-header", "date");
-
+        date.textContent = moment().add( i , 'days').format("MM-DD-YYYY")
         var info = document.createElement("div");
         info.classList.add("card-body");
         var temp = document.createElement("p");
