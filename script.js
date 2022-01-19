@@ -5,8 +5,11 @@
 var cityInput = document.querySelector("#city");
 var submitBtn = document.querySelector("#submit");
 var buttonContainer = document.querySelector('.history')
-var future = document.querySelector(".forcast")
-var weather = '';
+var stuff = document.querySelector('.stuff');
+var future = document.createElement("div");
+future.classList.add("forcats"); 
+stuff.append(future);
+var climate = '';
 var lat = '';
 var lon = '';
 var places = JSON.parse(localStorage.getItem("places")) || [];
@@ -67,6 +70,12 @@ var coordinates = function(city){
     });
 }
 
+var newFuture = function(){
+    var future = document.createElement("div");
+    future.classList.add("forcats"); 
+    stuff.append(future);
+};
+
 var getCityWeather = function (lat, lon) {
     var apiUrl = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon +"&exclude=hourly,minutely&APPID=46b66bbc7a7a2a16414a5f99510f4b75&units=metric";
     //get api key sorted
@@ -75,51 +84,75 @@ var getCityWeather = function (lat, lon) {
         console.log(response);
         response.json().then(function (data) {
             console.log(data);
-            weather = data;
-            displayCurrentWeather(weather);
-            displayDailyforcast(weather);
+            climate = data;
+            displayCurrentWeather(climate);
+            displayDailyforcast(climate);
         });
     });
 }
 
-var displayCurrentWeather = function (weather) {
-    if (weather) {
+
+
+var displayCurrentWeather = function (climate) {
+    
+    if (climate) {
         //temperature
         var temp = document.querySelector(".temp");
-        temp.textContent = "Temprature: " + weather.current.temp;
+        temp.textContent = "Temprature: " + climate.current.temp;
 
         //wind speed
         var wind = document.querySelector(".wind");
-        wind.textContent = "Wind Speed: " + weather.current.wind_speed;
+        wind.textContent = "Wind Speed: " + climate.current.wind_speed;
 
         //humidity
         var humidity = document.querySelector(".humidity");
-        humidity.textContent = "Humidity: " + weather.current.humidity;
+        humidity.textContent = "Humidity: " + climate.current.humidity;
 
         //UV Index
         var uvIndex = document.querySelector(".uvi");
-        uvIndex.textContent = "UV Index: " + weather.current.uvi;
+        uvIndex.textContent = "UV Index: " + climate.current.uvi;
 
+       if (2 >= climate.current.uvi){
+           uvIndex.style.backgroundColor = "green"
+       } else if (6 <= climate.current.uvi){
+        uvIndex.style.backgroundColor = "red"
+       } else {
+        uvIndex.style.backgroundColor = "yellow"
+       }
     }
 }
 
-var displayDailyforcast =  function(weather){
+var displayDailyforcast =  function(climate){
     for (let i =1 ; i <= 5; i++) {
+        //container
         var daily = document.createElement("div");
         daily.classList.add("card", "col-3");
+
+        //date
         var date = document.createElement("h5");
         date.classList.add("card-header", "date");
         date.textContent = moment().add( i , 'days').format("MM-DD-YYYY")
+
+        //information
         var info = document.createElement("div");
         info.classList.add("card-body");
+        
+        //icon
+        var picture =  climate.daily[i].weather[0].icon
+        console.log(picture)
+        var image = "http://openweathermap.org/img/wn/" + picture + "@2x.png"
+        var pic = document.createElement("img");
+        pic.setAttribute("src", image );
+        
+        //weather info
         var temp = document.createElement("p");
-        temp.textContent = "Temprature: " + weather.daily[i].temp.day;
+        temp.textContent = "Temprature: " + climate.daily[i].temp.day;
         var wind = document.createElement("p");
-        wind.textContent = "Wind Speed: " + weather.daily[i].wind_speed;
+        wind.textContent = "Wind Speed: " + climate.daily[i].wind_speed;
         var humid = document.createElement("p");
-        humid.textContent = "Humidity: " + weather.daily[i].humidity;
+        humid.textContent = "Humidity: " + climate.daily[i].humidity;
 
-        info.append(temp, wind, humid);
+        info.append(pic, temp, wind, humid);
         daily.append(date, info);
         future.append(daily);
     }
