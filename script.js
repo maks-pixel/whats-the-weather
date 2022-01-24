@@ -4,7 +4,8 @@
 // side bar search history
 var cityInput = document.querySelector("#city");
 var submitBtn = document.querySelector("#submit");
-var buttonContainer = document.querySelector('.history')
+var title = document.querySelector('.city');
+var buttonContainer = document.querySelector('.history');
 var stuff = document.querySelector('.stuff');
 var future = document.createElement("div");
 future.classList.add("forcats"); 
@@ -25,6 +26,7 @@ var citySubmition = function (event) {
     city = cityInput.value.trim();
     places.push(city);
     localStorage.setItem('places', JSON.stringify(places));
+    title.textContent = cityInput.value.trim();
     if (city) {
         var oldCity = document.createElement('BUTTON');
          oldCity.classList.add("btn", "btn-secondary", "place");
@@ -53,7 +55,9 @@ var historyBtn = function (event){
     event.preventDefault();
     console.log(event.target.id);
     city = event.target.id;
+    title.textContent = event.target.id;
     coordinates(city);
+
 }
 
 var coordinates = function(city){
@@ -123,6 +127,7 @@ var displayCurrentWeather = function (climate) {
 }
 
 var displayDailyforcast =  function(climate){
+    future.innerHTML='';
     for (let i =1 ; i <= 5; i++) {
         //container
         var daily = document.createElement("div");
