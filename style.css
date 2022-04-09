@@ -1,9 +1,11 @@
 .container{
     display: flex;
 }
-.forcast .card{
+.forcats, .card{
     display: flex;
     justify-content: space-between;
-    flex-direction: column;
+    flex-wrap: wrap;
+
+    flex-direction: row;
     align-items: center;
 }
