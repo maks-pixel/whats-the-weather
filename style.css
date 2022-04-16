@@ -17,5 +17,8 @@ header{
 main{
     display: flex;
     flex-wrap: wrap;
-    flex-direction: row;
+    flex-direction: column;
+}
+.today-card, .aside, .week{
+border: solid black 1px;
 }
