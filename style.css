@@ -22,3 +22,9 @@ main{
 .today-card, .aside, .week{
 border: solid black 1px;
 }
+.forcast{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: center;
+}

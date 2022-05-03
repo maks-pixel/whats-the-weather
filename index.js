@@ -4,14 +4,19 @@ var historyBtns = document.createElement('div');
 aside.append(historyBtns)
 var submitBtn = document.querySelector("#submit");
 var pastPlace = JSON.parse(localStorage.getItem("pastPlace")) || [];
+var week = document.querySelector(".week");
+var future = document.createElement("div");
+future.classList.add("forcast"); 
+week.append(future);
 var city = '';
-var todayDate = function(){
+var cityBtn =  document.querySelector("cityBtn");
+var todayDate = ()=>{
     var date = document.querySelector(".date");
     date.textContent += moment().format("MM-DD-YYYY")
 };
 
 //search for cities
-var citySearch = function(event){
+var citySearch =(event)=>{
     event.preventDefault();
     city = cityInput.value.trim();
     console.log (city);
@@ -21,23 +26,32 @@ var citySearch = function(event){
    if (city){
        var cityButton = document.createElement('button');
        cityButton.textContent = city;
+       cityButton.classList.add("cityBtn")
+       cityButton.value = city;
        historyBtns.append(cityButton);
      coordinates(city);  
    }
    
 }
 
-
 //add a city history button
-var oldBtns = function(){
+var oldBtns = ()=>{
     pastPlace.forEach( element =>{
         var cityButton = document.createElement('button');
-        cityButton.textContent = element;
+        cityButton.textContent = city;
+        cityButton.classList.add("cityBtn")
+        cityButton.value = city;
         historyBtns.append(cityButton)
     });
 }
+
+//making the buttons work
+var btnWork=(event)=>{
+    event.preventDefault();
+ console.log(cityBtn.value)
+}
 //finding the coordinates for the city
-var coordinates = function(city){
+var coordinates = (city)=>{
     var cityApiUrl= "https://api.opencagedata.com/geocode/v1/json?q=" + city + "&key=95fc79dbc2e94afaaae185ad4617f846";
     fetch(cityApiUrl).then(function(response){
         console.log(response);
@@ -59,13 +73,83 @@ var getCityWeather = function (lat, lon) {
         console.log(response);
         response.json().then(function (data) {
             console.log(data);
-            // climate = data;
+            var climate = data;
+            todaysWeather(climate);
+            weeksWeather(climate);
             // displayCurrentWeather(climate);
             // displayDailyforcast(climate);
         });
     });
 }
+var weeksWeather =  function(climate){
+    future.innerHTML='';
+    for (let i =1 ; i <= 5; i++) {
+        //container
+        var daily = document.createElement("div");
+        daily.classList.add("card", "col-3");
+
+        //date
+        var date = document.createElement("h5");
+        date.classList.add("card-header", "date");
+        date.textContent = moment().add( i , 'days').format("MM-DD-YYYY")
+
+        //information
+        var info = document.createElement("div");
+        info.classList.add("card-body");
+        
+        //icon
+        var picture =  climate.daily[i].weather[0].icon
+        console.log(picture)
+        var image = "http://openweathermap.org/img/wn/" + picture + "@2x.png"
+        var pic = document.createElement("img");
+        pic.setAttribute("src", image );
+        
+        //weather info
+        var temp = document.createElement("p");
+        temp.textContent = "Temprature: " + climate.daily[i].temp.day;
+        var wind = document.createElement("p");
+        wind.textContent = "Wind Speed: " + climate.daily[i].wind_speed;
+        var humid = document.createElement("p");
+        humid.textContent = "Humidity: " + climate.daily[i].humidity;
+
+        info.append(pic, temp, wind, humid);
+        daily.append(date, info);
+        future.append(daily);
+    }
+}
+
+//past buttons
+
+//current weather
+var todaysWeather= (climate)=>{
+    if(climate){
+        //todays temperature
+        var temp= document.querySelector('.temp');
+        temp.textContent = "Temperature: "+ climate.current.temp;
+
+        // todays wind speed
+        var wind = document.querySelector(".wind");
+        wind.textContent = "Wind Speed: " + climate.current.wind_speed;
+
+        //todays humidity
+        var humidity = document.querySelector(".humidity");
+        humidity.textContent = "Humidity: " + climate.current.humidity;
+
+        //todays UV Index
+        var uvIndex = document.querySelector(".uvi");
+        uvIndex.textContent = "UV Index: " + climate.current.uvi;
+
+       if (2 >= climate.current.uvi){
+           uvIndex.style.backgroundColor = "green"
+       } else if (6 <= climate.current.uvi){
+        uvIndex.style.backgroundColor = "red"
+       } else {
+        uvIndex.style.backgroundColor = "yellow"
+       }
+    }
+}
 
 todayDate();
-oldBtns();
+// oldBtns();
+
 submitBtn.addEventListener('click', citySearch);
