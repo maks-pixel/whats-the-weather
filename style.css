@@ -16,15 +16,108 @@ header{
 }
 main{
     display: flex;
-    flex-wrap: wrap;
-    flex-direction: column;
+    flex-direction: row;
 }
 .today-card, .aside, .week{
 border: solid black 1px;
 }
+ .aside{
+   display: flex;
+   flex-direction: column;
+justify-content: flex-start;
+align-items: flex-start;
+}
+.today{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+
+}
+.today-card{
+    display: flex;
+    flex-direction: row;
+    width: 70%;
+    margin: 10px;
+    
+    overflow:hidden;
+    box-shadow: 0px 0px 15px -5px;
+    transition: 0.5s;
+    background-color: #d8eefe ;
+    color: #094067;
+    border-radius: 6px;
+    padding:20px;
+}
 .forcast{
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     flex-wrap: wrap;
-    align-content: center;
-}
+    align-content:center;
+    justify-content: flex-start;
+  }
+  .card{
+    overflow:hidden;
+    box-shadow: 0px 0px 15px -5px;
+    transition: 0.5s;
+    background-color: #d8eefe ;
+    color: #094067;
+    margin: 10px;
+    /* border: 3px solid #f25f4c;  */
+    border-radius: 6px;
+    width: 150px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .card:hover{
+    transform: scale(1.05);
+    box-shadow: 0px 0px 15px -5px;
+  }
+  
+  .img-container{
+    object-fit: fill;
+  }
+
+  @media only screen and (mix-width: 768px) {
+    .today-card, .aside, .week{
+      border: solid black 1px;
+      }
+      .today, .aside, .search-container{
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+      }
+      .today-card{
+          display: flex;
+          flex-direction: column;
+          
+          margin: 10px;
+          
+          overflow:hidden;
+          box-shadow: 0px 0px 15px -5px;
+          transition: 0.5s;
+          background-color: #d8eefe ;
+          color: #094067;
+          border-radius: 6px;
+          padding:20px;
+      }
+      .forcast{
+          display: flex;
+          flex-direction: column;
+          flex-wrap: wrap;
+          align-content: center;
+          justify-content: center;
+        }
+        .card{
+          overflow:hidden;
+          box-shadow: 0px 0px 15px -5px;
+          transition: 0.5s;
+          background-color: #d8eefe ;
+          color: #094067;
+          margin: 10px;
+          /* border: 3px solid #f25f4c;  */
+          border-radius: 6px;
+        }
+  }

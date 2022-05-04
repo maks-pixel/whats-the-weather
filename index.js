@@ -81,42 +81,7 @@ var getCityWeather = function (lat, lon) {
         });
     });
 }
-var weeksWeather =  function(climate){
-    future.innerHTML='';
-    for (let i =1 ; i <= 5; i++) {
-        //container
-        var daily = document.createElement("div");
-        daily.classList.add("card", "col-3");
 
-        //date
-        var date = document.createElement("h5");
-        date.classList.add("card-header", "date");
-        date.textContent = moment().add( i , 'days').format("MM-DD-YYYY")
-
-        //information
-        var info = document.createElement("div");
-        info.classList.add("card-body");
-        
-        //icon
-        var picture =  climate.daily[i].weather[0].icon
-        console.log(picture)
-        var image = "http://openweathermap.org/img/wn/" + picture + "@2x.png"
-        var pic = document.createElement("img");
-        pic.setAttribute("src", image );
-        
-        //weather info
-        var temp = document.createElement("p");
-        temp.textContent = "Temprature: " + climate.daily[i].temp.day;
-        var wind = document.createElement("p");
-        wind.textContent = "Wind Speed: " + climate.daily[i].wind_speed;
-        var humid = document.createElement("p");
-        humid.textContent = "Humidity: " + climate.daily[i].humidity;
-
-        info.append(pic, temp, wind, humid);
-        daily.append(date, info);
-        future.append(daily);
-    }
-}
 
 //past buttons
 
@@ -149,6 +114,43 @@ var todaysWeather= (climate)=>{
     }
 }
 
+//weekly forcast
+var weeksWeather =  function(climate){
+    future.innerHTML='';
+    for (let i =1 ; i <= 5; i++) {
+        //container
+        var daily = document.createElement("div");
+        daily.classList.add("card");
+
+        //date
+        var date = document.createElement("h5");
+        date.classList.add("card-header", "date");
+        date.textContent = moment().add( i , 'days').format("MM-DD-YYYY")
+
+        //information
+        var info = document.createElement("div");
+        info.classList.add("card-body");
+        
+        //icon
+        var picture =  climate.daily[i].weather[0].icon
+        console.log(picture)
+        var image = "http://openweathermap.org/img/wn/" + picture + "@2x.png"
+        var pic = document.createElement("img");
+        pic.setAttribute("src", image );
+        pic.classList.add("img-container")
+        //weather info
+        var temp = document.createElement("p");
+        temp.textContent = "Temprature: " + climate.daily[i].temp.day;
+        var wind = document.createElement("p");
+        wind.textContent = "Wind Speed: " + climate.daily[i].wind_speed;
+        var humid = document.createElement("p");
+        humid.textContent = "Humidity: " + climate.daily[i].humidity;
+
+        info.append(pic, temp, wind, humid);
+        daily.append(date, info);
+        future.append(daily);
+    }
+}
 todayDate();
 // oldBtns();
 
