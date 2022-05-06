@@ -1,11 +1,11 @@
 var cityInput = document.querySelector('#city');
 var aside = document.querySelector('.search-container')
-var historyBtns = document.createElement('div');
-aside.append(historyBtns)
+var historyBtns = document.querySelector('.history-btns');
 var submitBtn = document.querySelector("#submit");
 var pastPlace = JSON.parse(localStorage.getItem("pastPlace")) || [];
 var week = document.querySelector(".week");
 var future = document.createElement("div");
+var title = document.querySelector('.city-name')
 future.classList.add("forcast"); 
 week.append(future);
 var city = '';
@@ -26,29 +26,44 @@ var citySearch =(event)=>{
    if (city){
        var cityButton = document.createElement('button');
        cityButton.textContent = city;
+       title.textContent = city; 
        cityButton.classList.add("cityBtn")
        cityButton.value = city;
        historyBtns.append(cityButton);
      coordinates(city);  
-   }
-   
+   } else {
+    alert('Please enter a city!')
+    } 
+    console.log(pastPlace);
 }
 
 //add a city history button
 var oldBtns = ()=>{
-    pastPlace.forEach( element =>{
+    console.log(pastPlace);
+    for(let index = 0; index < pastPlace.length; index++){
         var cityButton = document.createElement('button');
-        cityButton.textContent = city;
-        cityButton.classList.add("cityBtn")
-        cityButton.value = city;
-        historyBtns.append(cityButton)
-    });
+        cityButton.classList.add("btn", "cityBtn");
+        cityButton.setAttribute("id", pastPlace[index]);
+        cityButton.textContent = pastPlace[index];
+        cityButton.value = pastPlace[index];
+        historyBtns.append(cityButton);
+    }
+    // pastPlace.forEach( element =>{
+    //     var cityButton = document.createElement('button');
+    //     cityButton.textContent = city;
+    //     cityButton.classList.add("cityBtn")
+    //     cityButton.value = city;
+    //     historyBtns.append(cityButton)
+    // });
 }
 
 //making the buttons work
 var btnWork=(event)=>{
     event.preventDefault();
- console.log(cityBtn.value)
+ console.log(event.target.id);
+ city =  event.target.id;
+ title.textContent = city;
+ coordinates(city);
 }
 //finding the coordinates for the city
 var coordinates = (city)=>{
@@ -152,6 +167,7 @@ var weeksWeather =  function(climate){
     }
 }
 todayDate();
-// oldBtns();
+ oldBtns();
 
 submitBtn.addEventListener('click', citySearch);
+historyBtns.addEventListener('click', btnWork);

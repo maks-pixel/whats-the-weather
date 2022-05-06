@@ -13,12 +13,15 @@
 header{
     display: flex;
     justify-content: center;
+    color: #094067;
+    font-size: xx-large;
+    background-color: rgba(0,0,0,.03);
 }
 main{
     display: flex;
     flex-direction: row;
 }
-.today-card, .aside, .week{
+.today-card, .aside, .card{
 border: solid black 1px;
 }
  .aside{
@@ -26,21 +29,58 @@ border: solid black 1px;
    flex-direction: column;
 justify-content: flex-start;
 align-items: flex-start;
+margin:15px;
+
+overflow:hidden;
+    box-shadow: 0px 0px 15px -5px;
+    transition: 0.5s;
+    background-color: #d8eefe ;
+    color: #094067;
+    border-radius: 6px;
+    padding:20px;
+}
+.history-btns{
+  margin:5px;
+  padding:2px;
+width: 100%;
+display: flex;
+align-items: center;
+flex-direction: column;
+}
+.cityBtn{
+  background-color: #094067; 
+  border: none;
+  color: #d8eefe ;
+  width: 100%;
+  padding: 10px;
+  border-radius: 12px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 2px;
+}
+#submit{
+  background-color: #094067;
+  border: none;
+  color: #d8eefe ;
+  padding: 8px;
+  border-radius: 5px;
 }
 .today{
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   width: 90%;
-
+  margin: 15px;
 }
 .today-card{
     display: flex;
-    flex-direction: row;
-    width: 70%;
+    flex-direction: column;
+    width: 95%;
     margin: 10px;
-    
+    font-size: x-large;
     overflow:hidden;
     box-shadow: 0px 0px 15px -5px;
     transition: 0.5s;
@@ -49,12 +89,25 @@ align-items: flex-start;
     border-radius: 6px;
     padding:20px;
 }
+.city-name{
+  font-size: xx-large;
+  display: flex;
+  align-items: center;
+  background-color: rgba(0,0,0,.03);
+}
+.date{
+  font-size: x-large;
+}
+.week{
+  width: 100%;
+}
 .forcast{
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     align-content:center;
     justify-content: flex-start;
+    width:95%;
   }
   .card{
     overflow:hidden;
@@ -65,29 +118,34 @@ align-items: flex-start;
     margin: 10px;
     /* border: 3px solid #f25f4c;  */
     border-radius: 6px;
-    width: 150px;
+    width: 180px;
     display: flex;
     align-items: center;
   }
   
-  .card:hover{
+  .card:hover, .cityBtn:hover, #submit:hover{
     transform: scale(1.05);
     box-shadow: 0px 0px 15px -5px;
+    color: orange;
   }
+
   
   .img-container{
     object-fit: fill;
   }
 
-  @media only screen and (mix-width: 768px) {
+  @media only screen and (max-width: 800px) {
     .today-card, .aside, .week{
       border: solid black 1px;
       }
-      .today, .aside, .search-container{
+      .today, .aside, .search-container, main{
           display: flex;
           flex-direction: column;
           justify-content: center;
           align-items: center;
+      }
+      .today{
+        width: 95%;
       }
       .today-card{
           display: flex;
@@ -102,13 +160,14 @@ align-items: flex-start;
           color: #094067;
           border-radius: 6px;
           padding:20px;
+          width: 100%;
       }
-      .forcast{
+      .forcast, .week{
           display: flex;
           flex-direction: column;
-          flex-wrap: wrap;
           align-content: center;
           justify-content: center;
+          width: 100%;
         }
         .card{
           overflow:hidden;
@@ -117,7 +176,16 @@ align-items: flex-start;
           background-color: #d8eefe ;
           color: #094067;
           margin: 10px;
+         
+          width: 100%;
           /* border: 3px solid #f25f4c;  */
           border-radius: 6px;
+        }
+        .card-body, .date{
+          
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          color: #094067;
         }
   }
