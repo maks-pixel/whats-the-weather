@@ -62,7 +62,7 @@ var btnWork=(event)=>{
     event.preventDefault();
  console.log(event.target.id);
  city =  event.target.id;
- title.textContent = city;
+ title.textContent = event.target.id;
  coordinates(city);
 }
 //finding the coordinates for the city
