@@ -15,7 +15,7 @@
  * [Questions](#Questions)
  
  ## Installation
- go to the deployed link to use to app here https://maks-pixel.github.io/wk6whats-the-weather/ or download the repository and open the html page in your browser
+ go to the deployed link to use to app here https://maks-pixel.github.io/whats-the-weather/ or download the repository and open the html page in your browser
 
  ## Usage
  type in the city you want to get the weather forcast for and press the submit button to get the weather. Or get previously looked up cities by clicking on the buttons bellow the search bar with the city name 
