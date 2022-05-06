@@ -22,7 +22,7 @@
 
  ## Technologies
  In this project i used 2 APIs:
-    -Geotag API to locate the longetude and latitude of the city unput that would be passed along to...
+    -Geotag API to locate the latitude and longitude of the city unput that would be passed along to...
     -the weather API that will give the infotmation regarding that city
  the rest of the DOM manipulation was build with javascript and the styling and static parts of the site was built using simple CSS and HTML5
 
